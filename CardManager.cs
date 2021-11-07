@@ -85,7 +85,7 @@ public class CardManager : MonoBehaviour
         if (isMine)
             originCardPRSs = RoundAlignment(myCardLeft, myCardRight, myCards.Count, 0.5f, Vector3.one * 1.9f);
         else
-            originCardPRSs = RoundAlignment(otherCardLeft, otherCardRight, otherCardRight.childCount, -0.5f, Vector3.one * 1.9f);
+            originCardPRSs = RoundAlignment(otherCardLeft, otherCardRight, otherCards.Count, -0.5f, Vector3.one * 1.9f);
 
         var targetCards = isMine ? myCards : otherCards;
         for (int i = 0; i < targetCards.Count; i++)

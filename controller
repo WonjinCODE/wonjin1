@@ -1,0 +1,33 @@
+public class controller : MonoBehaviour
+{
+    [SerializeField]
+    private float speed = 1;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        //플레이어 이동
+        if(Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(new Vector3(-1f * 10 * Time.deltaTime, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(new Vector3(1f * 10 * Time.deltaTime, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(new Vector3(0, -1f * 10 * Time.deltaTime, 0));
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(new Vector3(0, 1f * 10 * Time.deltaTime, 0));
+        }
+    }
+}

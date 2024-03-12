@@ -2,6 +2,7 @@ public class controller : MonoBehaviour
 {
     [SerializeField]
     private float speed = 1;
+    private float Jump = 1;
     // Start is called before the first frame update
     void Start()
     {

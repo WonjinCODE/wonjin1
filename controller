@@ -1,8 +1,10 @@
 public class controller : MonoBehaviour
 {
     [SerializeField]
+    private Rigidbody rigid;
     private float speed = 1;
     private float Jump = 1;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,7 @@ public class controller : MonoBehaviour
         }
         if (Input.GetKey(Keycode.space))
         {
-            transform.Translate(new Vector3(0, 1f * 10 * Time.deltaTime, 0));
+            rigd.AddForce(Vector3*up * Jump, Forcemod.ImPulse);
         }
     }
 }

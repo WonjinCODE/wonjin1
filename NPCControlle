@@ -1,0 +1,70 @@
+using UnityEngine;
+
+public class NPCController : MonoBehaviour
+{
+    public float moveSpeed = 3f;
+    public float changeDirectionInterval = 2f; // 이동 방향을 변경하는 간격
+    public float maxDistanceFromInitialPosition = 10f; // NPC가 이동하는 최대 거리
+
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float fireRate = 1f;
+    public int attackDamage = 10;
+    public float attackRange = 5f;
+    public float maxDistanceForRangedAttack = 8f;
+
+    private Vector3 initialPosition;
+    private float lastDirectionChangeTime;
+    private Transform player;
+    private float lastFireTime;
+
+    void Start()
+    {
+        initialPosition = transform.position;
+        lastDirectionChangeTime = Time.time;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    void Update()
+    {
+        // 일정 시간 간격으로 이동 방향 변경
+        if (Time.time - lastDirectionChangeTime >= changeDirectionInterval)
+        {
+            Vector3 newDirection = Random.insideUnitCircle.normalized;
+            transform.up = newDirection; // NPC의 방향을 변경
+            lastDirectionChangeTime = Time.time;
+        }
+
+        // NPC 이동
+        transform.Translate(transform.up * moveSpeed * Time.deltaTime);
+
+        // 초기 위치에서 일정 거리를 벗어나면 되돌아감
+        if (Vector3.Distance(transform.position, initialPosition) > maxDistanceFromInitialPosition)
+        {
+            transform.up = (initialPosition - transform.position).normalized;
+        }
+
+        // 플레이어와의 거리 계산
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        // 가까이 다가가면 근접 공격
+        if (distanceToPlayer <= attackRange)
+        {
+            // 근접 공격 로직을 여기에 추가
+            Debug.Log("NPC가 플레이어를 근접 공격합니다!");
+        }
+        // 일정 거리 안으로 접근하면 원거리 공격
+        else if (distanceToPlayer <= maxDistanceForRangedAttack && Time.time - lastFireTime >= 1f / fireRate)
+        {
+            // 원거리 공격 로직을 여기에 추가
+            Fire();
+            lastFireTime = Time.time;
+        }
+    }
+
+    void Fire()
+    {
+        // 원거리 공격 로직을 여기에 추가
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    }
+}
